@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pbeheyt <pbeheyt@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 11:47:15 by pbeheyt           #+#    #+#             */
-/*   Updated: 2022/05/18 02:19:14 by pbeheyt          ###   ########.fr       */
+/*   Updated: 2022/05/19 00:40:44 by pbeheyt          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ size_t	ft_strlen(const char *str)
 {
 	int	i;
 
-	if (str == 0)
+	if (!str)
 		return (0);
 	i = 0;
 	while (str[i] != 0)
@@ -26,16 +26,15 @@ size_t	ft_strlen(const char *str)
 
 int	ft_strchr(const char *str, int c)
 {
-	unsigned int	j;
+	int	i;
 
-	if (str == 0)
+	if (!str)
 		return (0);
-	j = 0;
-	while (str[j] != 0)
+	i = -1;
+	while (str[++i])
 	{
-		if ((unsigned char)c == str[j])
+		if ((unsigned char)c == str[i])
 			return (1);
-	j++;
 	}
 	return (0);
 }
@@ -45,24 +44,21 @@ char	*ft_strjoin(const char *s1, const char *s2)
 	char	*str;
 	size_t	size;
 	size_t	i;
+	size_t	j;
 
-	if (s1 == 0 && s2 == 0)
-		return (0);
+	if (!s1 && !s2)
+		return (NULL);
 	size = ft_strlen(s1) + ft_strlen(s2);
 	str = malloc(sizeof(char) * (size + 1));
-	if (str == 0)
-		return (0);
+	if (!str)
+		return (NULL);
 	i = 0;
-	while (s1 && *s1 != 0)
-	{
-		str[i++] = *s1;
-		s1++;
-	}
-	while (s2 && *s2 != 0)
-	{
-		str[i++] = *s2;
-		s2++;
-	}
+	j = 0;
+	while (s1 && s1[j])
+		str[i++] = s1[j++];
+	j = 0;
+	while (s2 && s2[j])
+		str[i++] = s2[j++];
 	str[i] = 0;
 	return (str);
 }

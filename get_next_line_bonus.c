@@ -6,7 +6,7 @@
 /*   By: pbeheyt <pbeheyt@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 11:47:15 by pbeheyt           #+#    #+#             */
-/*   Updated: 2022/05/18 04:19:01 by pbeheyt          ###   ########.fr       */
+/*   Updated: 2022/05/19 01:52:06 by pbeheyt          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,11 @@ char	*clear_save(char *save)
 	int		j;
 	char	*save_cleared;
 
-	
-	if (!*save)
-		return (free(save), NULL);
 	i = 0;
 	while (save[i] != 0 && save[i] != '\n' )
 		i++;
+	if (!save[i])
+		return (free(save), NULL);
 	save_cleared = malloc(sizeof(char) * (ft_strlen(save) - i + 1));
 	if (!save_cleared)
 		return (free(save), NULL);
@@ -43,7 +42,7 @@ char	*extract_line(char *save)
 	if (!*save)
 		return (NULL);
 	i = 0;
-	while (save[i] != '\n' && save[i] != 0)
+	while (save[i] != '\n' && save[i])
 		i++;
 	line = malloc(sizeof(char) * i + 2);
 	if (!line)
@@ -79,34 +78,34 @@ char	*read_and_add(char *save, int fd)
 
 char	*get_next_line(int fd)
 {
-	static char	*save;
+	static char	*save[1024];
 	char		*line;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (0);
-	save = read_and_add(save, fd);
-	if (!save)
+	save[fd] = read_and_add(save[fd], fd);
+	if (!save[fd])
 		return (NULL);
-	line = extract_line(save);
-	save = clear_save(save);
+	line = extract_line(save[fd]);
+	save[fd] = clear_save(save[fd]);
 	return (line);
 }
-
+/*
 int	main(void)
 {
 	int		fd;
 	char	*line;
-	
+
 	fd = open("test.txt", O_RDONLY);
 	while (1)
 	{
 		line = get_next_line(fd);
-		if (!*line)
-			break;
+		if (!line)
+			break ;
 		printf("%s", line);
 		free(line);
 		line = NULL;
 	}
 	close(fd);
 	return (0);
-}
+}*/
