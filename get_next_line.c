@@ -6,7 +6,7 @@
 /*   By: pbeheyt <pbeheyt@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 11:47:15 by pbeheyt           #+#    #+#             */
-/*   Updated: 2022/05/19 00:42:31 by pbeheyt          ###   ########.fr       */
+/*   Updated: 2022/05/19 02:14:32 by pbeheyt          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	*clear_save(char *save)
 	char	*save_cleared;
 
 	i = 0;
-	while (save[i] != 0 && save[i] != '\n' )
+	while (save[i] && save[i] != '\n')
 		i++;
 	if (!save[i])
 		return (free(save), NULL);
@@ -28,7 +28,7 @@ char	*clear_save(char *save)
 		return (free(save), NULL);
 	i++;
 	j = 0;
-	while (save[i] != 0)
+	while (save[i])
 		save_cleared[j++] = save[i++];
 	save_cleared[j] = 0;
 	return (free(save), save_cleared);
@@ -37,12 +37,12 @@ char	*clear_save(char *save)
 char	*extract_line(char *save)
 {
 	char	*line;
-	size_t	i;
+	int		i;
 
 	if (!*save)
 		return (NULL);
 	i = 0;
-	while (save[i] != '\n' && save[i])
+	while (save[i] && save[i] != '\n')
 		i++;
 	line = malloc(sizeof(char) * i + 2);
 	if (!line)
@@ -82,7 +82,7 @@ char	*get_next_line(int fd)
 	char		*line;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
-		return (0);
+		return (NULL);
 	save = read_and_add(save, fd);
 	if (!save)
 		return (NULL);

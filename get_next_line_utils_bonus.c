@@ -6,7 +6,7 @@
 /*   By: pbeheyt <pbeheyt@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 11:47:15 by pbeheyt           #+#    #+#             */
-/*   Updated: 2022/05/19 00:40:44 by pbeheyt          ###   ########.fr       */
+/*   Updated: 2022/05/19 02:08:51 by pbeheyt          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ size_t	ft_strlen(const char *str)
 	if (!str)
 		return (0);
 	i = 0;
-	while (str[i] != 0)
+	while (str[i])
 		i++;
 	return (i);
 }
