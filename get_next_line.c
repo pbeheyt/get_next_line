@@ -6,7 +6,7 @@
 /*   By: pbeheyt <pbeheyt@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 11:47:15 by pbeheyt           #+#    #+#             */
-/*   Updated: 2022/05/19 02:14:32 by pbeheyt          ###   ########.fr       */
+/*   Updated: 2022/05/19 07:47:43 by pbeheyt          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ char	*extract_line(char *save)
 	i = 0;
 	while (save[i] && save[i] != '\n')
 		i++;
-	line = malloc(sizeof(char) * i + 2);
+	line = malloc(sizeof(char) * (i + 2));
 	if (!line)
 		return (free(line), NULL);
 	line[++i] = 0;
@@ -90,7 +90,7 @@ char	*get_next_line(int fd)
 	save = clear_save(save);
 	return (line);
 }
-/*
+
 int	main(void)
 {
 	int		fd;
@@ -108,4 +108,4 @@ int	main(void)
 	}
 	close(fd);
 	return (0);
-}*/
+}

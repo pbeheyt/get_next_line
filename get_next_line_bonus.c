@@ -6,11 +6,11 @@
 /*   By: pbeheyt <pbeheyt@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 11:47:15 by pbeheyt           #+#    #+#             */
-/*   Updated: 2022/05/19 02:06:02 by pbeheyt          ###   ########.fr       */
+/*   Updated: 2022/05/19 07:48:04 by pbeheyt          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 char	*clear_save(char *save)
 {
@@ -44,7 +44,7 @@ char	*extract_line(char *save)
 	i = 0;
 	while (save[i] && save[i] != '\n')
 		i++;
-	line = malloc(sizeof(char) * i + 2);
+	line = malloc(sizeof(char) * (i + 2));
 	if (!line)
 		return (free(line), NULL);
 	line[++i] = 0;
@@ -81,7 +81,7 @@ char	*get_next_line(int fd)
 	static char	*save[1024];
 	char		*line;
 
-	if (fd < 0 || BUFFER_SIZE <= 0)
+	if (fd < 0 || fd > 1023 || BUFFER_SIZE <= 0)
 		return (NULL);
 	save[fd] = read_and_add(save[fd], fd);
 	if (!save[fd])
